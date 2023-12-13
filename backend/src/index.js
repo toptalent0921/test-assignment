@@ -11,7 +11,7 @@ const supabase = createClient(
     process.env.SUPABASE_PUBLIC_KEY
 );
 // Set your Stripe API key
-const stripeSecretKey = process.env.STRIPE_PK;
+const stripeSecretKey = process.env.STRIPE_SK;
 const stripeClient = stripe(stripeSecretKey);
 
 app.use(express.json());

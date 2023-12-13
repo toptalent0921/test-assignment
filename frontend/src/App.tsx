@@ -7,9 +7,6 @@ import { Routes, Route } from 'react-router-dom';
 import Footer from './components/subcomponent/Footer'
 import Home from './components/pages/Home'
 function App() {
-  console.log('====================================');
-  console.log(import.meta.env.VITE_SUPABASE_PUBLIC_KEY);
-  console.log('====================================');
   return (
     <>
       <div >

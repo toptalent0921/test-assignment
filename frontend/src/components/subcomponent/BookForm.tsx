@@ -29,7 +29,7 @@ import { loadStripe } from '@stripe/stripe-js';
 
 const formSchema = z.object({
     name: z.string().min(2).max(50),
-    phone: z.number(),
+    phone: z.number().min(7).max(11),
     address: z.string(),
 })
 

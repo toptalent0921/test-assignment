@@ -87,9 +87,9 @@ const BookForm = (param: parameter) => {
                     </DialogTrigger>
                     <DialogContent className="sm:max-w-[425px]">
                         <DialogHeader>
-                            <DialogTitle>Edit profile</DialogTitle>
+                            <DialogTitle>Book Now</DialogTitle>
                             <DialogDescription>
-                                Make changes to your profile here. Click save when you're done.
+                                book our premium and exclusive service now.
                             </DialogDescription>
                         </DialogHeader>
                         <div className="grid gap-4 py-4">

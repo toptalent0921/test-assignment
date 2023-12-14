@@ -18,52 +18,51 @@ app.use(express.json());
 app.use(cors());
 
 // Stripe webhook endpoint
-// app.post("/webhook", express.raw({ type: "application/json" }), (req, res) => {
-//     const sig = req.headers["stripe-signature"];
 
-//     let event;
+app.post(
+    "/webhook",
+    express.raw({ type: "application/json" }),
+    (request, response) => {
+        const sig = request.headers["stripe-signature"];
 
-//     try {
-//         event = stripe.webhooks.constructEvent(
-//             req.body,
-//             sig,
-//             stripeWebhookSecret
-//         );
-//     } catch (err) {
-//         console.error("Webhook Error:", err.message);
-//         return res.status(400).send(`Webhook Error: ${err.message}`);
-//     }
+        let event;
 
-//     // Handle the payment_intent.succeeded event
-//     if (event.type === "payment_intent.succeeded") {
-//         const paymentIntent = event.data.object;
-//         console.log("PaymentIntent succeeded:", paymentIntent);
+        try {
+            event = stripe.webhooks.constructEvent(
+                request.body,
+                sig,
+                endpointSecret
+            );
+        } catch (err) {
+            response.status(400).send(`Webhook Error: ${err.message}`);
+            return;
+        }
 
-//         // Extract relevant data from paymentIntent and store in Supabase
-//         const { amount_received, customer, metadata } = paymentIntent;
+        // Handle the event
+        switch (event.type) {
+            case "payment_intent.succeeded":
+                const paymentIntentSucceeded = event.data.object;
+                // Then define and call a function to handle the event payment_intent.succeeded
+                // const { error } = supabase
+                //     .from("countries")
+                //     .update({ name: "Australia" })
+                //     .eq("id", 1);
 
-//         const createData = async () => {
-//             const { error } = await supabase.from("payments").insert({
-//                 amount_received,
-//                 customer,
-//                 metadata,
-//                 // Add other fields as needed
-//             });
+                // console.log(error, "working");
 
-//             if (error) {
-//                 console.error("Error storing data in Supabase:", error.message);
-//             } else {
-//                 console.log("Data stored in Supabase successfully");
-//             }
-//         };
-//         createData();
-//     }
+                console.log("====================================");
+                console.log("working");
+                console.log("====================================");
+                break;
+            // ... handle other event types
+            default:
+                console.log(`Unhandled event type ${event.type}`);
+        }
 
-//     // Acknowledge receipt of the event
-//     res.json({ received: true });
-// });
-
-// checkout api
+        // Return a 200 response to acknowledge receipt of the event
+        response.send();
+    }
+);
 
 app.get("/test", async (req, res) => {
     res.json({

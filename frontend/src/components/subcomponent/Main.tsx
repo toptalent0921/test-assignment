@@ -25,7 +25,7 @@ const Main = () => {
 
             <div className=' relative'>
                 <div className=" w-80 h-80 diffBorder absolute bg-green-200 top-10 rotate-90  -left-6"></div>
-                <div className=" w-96 h-96 diffBorder absolute bg-green-200 top-40 rotate-45  -right-6"></div>
+                <div className=" w-96 h-96 diffBorder absolute bg-green-200 top-40 rotate-45  right-24"></div>
                 <div className=" w-40 h-40 diffBorder absolute bg-green-200 bottom-10 rotate-12  left-52"></div>
                 <div className=' flex flex-col'>
                     <h1 className="  mb-6 mt-12 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl text-green-900  m-auto">Our Service</h1>

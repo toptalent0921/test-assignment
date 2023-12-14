@@ -83,7 +83,7 @@ const BookForm = (param: parameter) => {
             <>
                 <Dialog>
                     <DialogTrigger asChild>
-                        <Button variant="outline">Edit Profile</Button>
+                        <Button size={"full"}>Book Now</Button>
                     </DialogTrigger>
                     <DialogContent className="sm:max-w-[425px]">
                         <DialogHeader>

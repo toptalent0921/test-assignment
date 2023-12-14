@@ -64,6 +64,12 @@ app.use(cors());
 // });
 
 // checkout api
+
+app.get("/test", async (req, res) => {
+    res.json({
+        greet: "hello",
+    });
+});
 app.post("/api/create-checkout-session", async (req, res) => {
     const { information } = req.body;
 

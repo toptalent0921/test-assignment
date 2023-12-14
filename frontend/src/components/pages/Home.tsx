@@ -1,4 +1,3 @@
-import React from 'react'
 import HeroSection from '../subcomponent/HeroSection'
 import Main from '../subcomponent/Main'
 

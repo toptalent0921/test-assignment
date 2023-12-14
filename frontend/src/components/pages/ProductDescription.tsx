@@ -19,8 +19,9 @@ interface Service {
 const ProductDescription: React.FC = () => {
     const [service, setService] = useState<Service[]>([]);
     const [errorMessage, setErrorMessage] = useState<string>('');
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams] = useSearchParams();
     const serviceId = searchParams.get('id');
+
 
     useEffect(() => {
         const fetchData = async () => {

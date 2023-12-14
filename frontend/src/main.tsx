@@ -8,7 +8,7 @@ import { BrowserRouter } from 'react-router-dom';
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <Auth0Provider
     domain="dev-rx8s3631j4tlt3t2.us.auth0.com"
-    clientId="ci7aUlHypXq4ARVV1ETMBIusPFOh1fmW"
+    clientId={import.meta.env.VITE_CLIENTID}
     authorizationParams={{
       redirect_uri: "http://localhost:5173"
     }}

@@ -7,7 +7,7 @@ const Login = () => {
     if (isAuthenticated) {
         return (
             <div className="flex justify-center items-center  bg-slate-200">
-                <Button onClick={() => logout({ returnTo: window.location.origin })} >
+                <Button onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })} >
                     Log Out
                 </Button>
             </div>

@@ -50,6 +50,15 @@ app.post(
 
                 // console.log(error, "working");
 
+                const createData = async () => {
+                    const { error } = await supabase.from("users").insert({
+                        name: "information.name",
+                        email: "information.email",
+                        phone: "information.phone",
+                        address: "information.address",
+                    });
+                };
+                createData();
                 console.log("====================================");
                 console.log("working");
                 console.log("====================================");

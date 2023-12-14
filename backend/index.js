@@ -110,8 +110,8 @@ app.post("/api/create-checkout-session", async (req, res) => {
         payment_method_types: ["card"],
         line_items: lineItems,
         mode: "payment",
-        success_url: "http://localhost:5173/",
-        cancel_url: "http://localhost:5173/",
+        success_url: "https://test-assignment-i5mu.vercel.app/",
+        cancel_url: "https://test-assignment-i5mu.vercel.app/",
     });
 
     if (false) {

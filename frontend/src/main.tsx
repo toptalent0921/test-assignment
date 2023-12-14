@@ -9,7 +9,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     domain="dev-rx8s3631j4tlt3t2.us.auth0.com"
     clientId={import.meta.env.VITE_CLIENTID}
     authorizationParams={{
-      redirect_uri: "http://localhost:5173"
+      redirect_uri: "https://test-assignment-i5mu.vercel.app"
     }}
     cacheLocation="localstorage"
 

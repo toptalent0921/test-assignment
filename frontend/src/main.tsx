@@ -14,10 +14,10 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   //   cacheLocation="localstorage"
   // >
   <Auth0Provider
-    // domain="dev-rx8s3631j4tlt3t2.us.auth0.com"
-    // clientId="zYTupko8NalkX5xkyeakc9MqT4lfuSK9"
     domain="dev-rx8s3631j4tlt3t2.us.auth0.com"
-    clientId="ci7aUlHypXq4ARVV1ETMBIusPFOh1fmW"
+    clientId="zYTupko8NalkX5xkyeakc9MqT4lfuSK9"
+    // domain="dev-rx8s3631j4tlt3t2.us.auth0.com"
+    // clientId="ci7aUlHypXq4ARVV1ETMBIusPFOh1fmW"
     authorizationParams={{
       redirect_uri: window.location.origin
     }}

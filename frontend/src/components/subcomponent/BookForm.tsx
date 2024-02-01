@@ -48,7 +48,7 @@ const BookForm = (param: parameter) => {
     });
 
     const onSubmit = async (value: z.infer<typeof formSchema>) => {
-        console.log(value)
+        // console.log(value)
 
         const information = { ...value, email: user?.email, ...param }
 
@@ -111,67 +111,59 @@ const BookForm = (param: parameter) => {
                 <DialogContent className="sm:max-w-[425px]">
 
                     <Form {...form}>
-                        <FormField
-                            control={form.control}
-                            name="..."
-                            render={() => (
-                                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-                                    <FormField
-                                        control={form.control}
-                                        name="name"
-                                        render={({ field }) => (
-                                            <FormItem>
-                                                <FormLabel>Name</FormLabel>
-                                                <FormControl>
-                                                    <Input placeholder="John Doe" required  {...field} />
-                                                </FormControl>
-                                                <FormDescription>
-                                                    This is your public display name.
-                                                </FormDescription>
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
-                                    />
+                        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+                            <FormField
+                                control={form.control}
+                                name="name"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Name</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="John Doe" required  {...field} />
+                                        </FormControl>
+                                        <FormDescription>
+                                            This is your public display name.
+                                        </FormDescription>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
 
-                                    <FormField
-                                        // control={form.control}
-                                        name="phone"
-                                        render={({ field }) => (
-                                            <FormItem>
-                                                <FormLabel>Phone Number</FormLabel>
-                                                <FormControl>
-                                                    <Input placeholder="Phone Number" required type='number' {...field} />
-                                                </FormControl>
-                                                <FormDescription>
-                                                    This is your public display name.
-                                                </FormDescription>
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
-                                    />
+                            <FormField
+                                // control={form.control}
+                                name="phone"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Phone Number</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="Phone Number" required type='number' {...field} />
+                                        </FormControl>
+                                        <FormDescription>
+                                            This is your public display name.
+                                        </FormDescription>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
 
-                                    <FormField
-                                        control={form.control}
-                                        name="address"
-                                        render={({ field }) => (
-                                            <FormItem>
-                                                <FormLabel>Full Address</FormLabel>
-                                                <FormControl>
-                                                    <Input placeholder="address" required type='text' {...field} />
-                                                </FormControl>
-                                                <FormDescription>
-                                                    follow this formate House No , Street/Landmark , Zipcode, State, Country.
-                                                </FormDescription>
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
-                                    />
-
-
-                                    <Button type="submit">Pay Now</Button>
-                                </form>
-                            )}
-                        />
+                            <FormField
+                                control={form.control}
+                                name="address"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Full Address</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="address" required type='text' {...field} />
+                                        </FormControl>
+                                        <FormDescription>
+                                            follow this formate House No , Street/Landmark , Zipcode, State, Country.
+                                        </FormDescription>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <Button type="submit">Pay Now</Button>
+                        </form>
                     </Form>
                 </DialogContent>
             </Dialog>

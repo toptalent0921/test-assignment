@@ -1,8 +1,13 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Login from './LoginButton';
+import { Button } from '../ui/button';
+import { useAuth0 } from '@auth0/auth0-react';
 const Navbar = () => {
     const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const { isAuthenticated } = useAuth0();
+
+
 
     const toggleMobileMenu = () => {
         setMobileMenuOpen(!isMobileMenuOpen);
@@ -31,7 +36,10 @@ const Navbar = () => {
                 <div className="hidden lg:flex items-center space-x-4">
                     <Link to="/" className="text-green-800">Home</Link>
                     <Link to="/search" className="text-green-800">Search</Link>
-
+                    {(
+                        isAuthenticated ?
+                            <Button variant="green"  ><Link to="/order">Order </Link></Button> : ""
+                    )}
                     <Login />
 
                 </div>
@@ -42,6 +50,11 @@ const Navbar = () => {
                 <div className="flex flex-col items-center space-y-4 mt-4">
                     <Link to="/" className="text-green-800">Home</Link>
                     <Link to="/search" className="text-green-800">Search</Link>
+
+                    {(
+                        isAuthenticated ?
+                            <Button variant="green"  ><Link to="/order">Order </Link></Button> : ""
+                    )}
                     <Login />
                 </div>
             </div>

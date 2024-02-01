@@ -11,6 +11,7 @@ import {
 import { useForm } from "react-hook-form"
 import { Input } from "@/components/ui/input"
 import * as z from "zod"
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuth0 } from '@auth0/auth0-react';
 import Login from "./LoginButton"
 import { Button } from "@/components/ui/button"
@@ -22,18 +23,15 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
-// import GooglePayButton from '@google-pay/button-react';
 import { loadStripe } from '@stripe/stripe-js';
 
-
-
 const formSchema = z.object({
-    name: z.string().min(2).max(50),
-    phone: z.number().min(7).max(11),
+    name: z.string().min(2, { message: 'Name should be at least 2 characters long' }),
+    phone: z.string().min(7, { message: 'Phone number should be less then 7 digits' }).max(11, { message: 'Phone number should be more then 11 digits' }),
     address: z.string(),
 })
 
-
+//snap it
 type parameter = {
     productId: number;
     price: number;
@@ -43,12 +41,14 @@ type parameter = {
 const BookForm = (param: parameter) => {
     const { user } = useAuth0();
     const form = useForm<z.infer<typeof formSchema>>({
+        resolver: zodResolver(formSchema),
         defaultValues: {
             name: "",
         },
     });
 
     const onSubmit = async (value: z.infer<typeof formSchema>) => {
+        console.log(value)
 
         const information = { ...value, email: user?.email, ...param }
 
@@ -61,6 +61,7 @@ const BookForm = (param: parameter) => {
             "Content-Type": "application/json"
         }
         const response = await fetch("https://test-assignment-one.vercel.app/api/create-checkout-session", {
+            // const response = await fetch("http://localhost:7000/api/create-checkout-session", {
             method: "POST",
             headers: headers,
             body: JSON.stringify(body)
@@ -68,13 +69,13 @@ const BookForm = (param: parameter) => {
 
         const session = await response.json();
 
-        const result = stripe?.redirectToCheckout({
-            sessionId: session.id
+        const result = await stripe?.redirectToCheckout({
+            sessionId: session.id,
         });
 
-        if (result) {
-            console.log(result);
-        }
+        // if (result) {
+        console.log(result);
+        // }
 
     }
 
@@ -111,7 +112,7 @@ const BookForm = (param: parameter) => {
 
                     <Form {...form}>
                         <FormField
-                            // control={...}
+                            control={form.control}
                             name="..."
                             render={() => (
                                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -133,7 +134,7 @@ const BookForm = (param: parameter) => {
                                     />
 
                                     <FormField
-                                        control={form.control}
+                                        // control={form.control}
                                         name="phone"
                                         render={({ field }) => (
                                             <FormItem>
@@ -172,9 +173,6 @@ const BookForm = (param: parameter) => {
                             )}
                         />
                     </Form>
-
-
-
                 </DialogContent>
             </Dialog>
         )

@@ -1,4 +1,4 @@
-import { Button } from 'flowbite-react'
+
 import {
     Card,
     CardContent,
@@ -16,7 +16,7 @@ const Main = () => {
                     <div className='p-5 '>
                         <h1 className="max-w-2xl mb-6 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl text-green-900 ">About Us</h1>
                         <p className="max-w-2xl mb-6 font-light text-green-700 lg:mb-8 md:text-lg lg:text-xl ">At Horse Care, we understand the special bond between you and your horse. With a passion for equine well-being, we have curated a comprehensive range of services dedicated to ensuring the health, happiness, and vitality of your beloved companions..</p>
-                        <Button> hello</Button></div>
+                    </div>
                     <div className=''>
                         <img src="https://images.squarespace-cdn.com/content/v1/6059408180248961351f697c/1616546912894-LHHZTX4DRYVI934197YB/HorseWash.png" alt="mockup" />
                     </div>

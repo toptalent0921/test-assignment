@@ -27,7 +27,7 @@ const Search: React.FC = () => {
     useEffect(() => {
         const fetchData = async () => {
             const { data, error } = await supabase
-                .from('services') // Assuming your service data structure follows the 'Service' interface
+                .from('services')
                 .select('*');
 
             if (error) {
@@ -42,6 +42,7 @@ const Search: React.FC = () => {
         };
 
         fetchData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
 
@@ -61,9 +62,6 @@ const Search: React.FC = () => {
             </div>
         )
     } else {
-
-
-
         return (
             <div className=' m-auto  max-w-7xl '>
                 <div className=' flex items-center justify-center '>

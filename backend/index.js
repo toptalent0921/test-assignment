@@ -14,15 +14,16 @@ const supabase = createClient(
 const stripeSecretKey = process.env.STRIPE_SK;
 const stripeClient = stripe(stripeSecretKey);
 
-app.use(express.json());
 app.use(cors());
 
 // Stripe webhook endpoint
-
 app.post(
     "/webhook",
     express.raw({ type: "application/json" }),
     (request, response) => {
+        console.log("====================================");
+        console.log("webhook is running");
+        console.log("====================================");
         const sig = request.headers["stripe-signature"];
 
         let event;
@@ -31,7 +32,7 @@ app.post(
             event = stripe.webhooks.constructEvent(
                 request.body,
                 sig,
-                "whsec_BW0Hwyuwi4izy6YgUXqF1vIFpgzlgUlX"
+                "whsec_ZOE2bYCCH7L6gd503jmIHNXX23ErVGKO"
             );
         } catch (err) {
             response.status(400).send(`Webhook Error: ${err.message}`);
@@ -39,68 +40,69 @@ app.post(
         }
 
         // Handle the event
+        // console.log("====================================");
+        // console.log("webhook is running", event);
+        // console.log("====================================");
+        // console.log(
+        //     "custom detail",
+        //     event.data.object.payment_intent,
+        //     event.data.object.id
+        // );
+
         switch (event.type) {
-            case "payment_intent.succeeded":
-                const paymentIntentSucceeded = event.data.object;
-                // Then define and call a function to handle the event payment_intent.succeeded
-                // const { error } = supabase
-                //     .from("countries")
-                //     .update({ name: "Australia" })
-                //     .eq("id", 1);
-
-                // console.log(error, "working");
-
-                const createData = async () => {
-                    const { error } = await supabase.from("users").insert({
-                        name: "information.name",
-                        email: "information.email",
-                        phone: "information.phone",
-                        address: "information.address",
-                    });
+            case "checkout.session.async_payment_failed":
+                const checkoutSessionAsyncPaymentFailed = event.data.object;
+                // Then define and call a function to handle the event checkout.session.async_payment_failed
+                break;
+            case "checkout.session.async_payment_succeeded":
+                const checkoutSessionAsyncPaymentSucceeded = event.data.object;
+                // Then define and call a function to handle the event checkout.session.async_payment_succeeded
+                break;
+            case "checkout.session.completed":
+                const checkoutSessionCompleted = event.data.object;
+                // Then define and call a function to handle the event checkout.session.completed
+                const paymentUpdate = async () => {
+                    await supabase
+                        .from("order_list")
+                        .update({ payment: true })
+                        .eq("session", event.data.object.id);
                 };
-                createData();
-                console.log("====================================");
-                console.log("working");
-                console.log("====================================");
+
+                if (event.data.object.payment_status === "paid") {
+                    paymentUpdate();
+                }
+
+                break;
+            case "checkout.session.expired":
+                const checkoutSessionExpired = event.data.object;
+                // Then define and call a function to handle the event checkout.session.expired
+                break;
+            case "climate.order.created":
+                const climateOrderCreated = event.data.object;
+                // Then define and call a function to handle the event climate.order.created
                 break;
             // ... handle other event types
             default:
                 console.log(`Unhandled event type ${event.type}`);
         }
-
-        // Return a 200 response to acknowledge receipt of the event
-        response.send();
     }
 );
 
+app.use(express.json());
+
 app.get("/test", async (req, res) => {
-    res.json({
-        greet: "hello",
-    });
+    const paymentIntent = await stripeClient.paymentIntents.retrieve(
+        "pi_3OaYzVSHA6kZM5pL1DQbAHnF"
+    );
+
+    console.log("-----------------------------------------");
+    console.log(paymentIntent);
+    console.log("-----------------------------------------");
+    res.json(paymentIntent);
 });
+
 app.post("/api/create-checkout-session", async (req, res) => {
     const { information } = req.body;
-
-    // console.log(information);
-
-    const createData = async () => {
-        const { error } = await supabase.from("users").insert({
-            name: information.name,
-            email: information.email,
-            phone: information.phone,
-            address: information.address,
-        });
-
-        // let { data } = await supabase
-        //     .from("users") // Assuming your service data structure follows the 'Service' interface
-        //     .select("*");
-
-        // console.log("====================================");
-        // console.log(error);
-        // console.log("====================================");
-    };
-    createData();
-
     const lineItems = [
         {
             price_data: {
@@ -118,24 +120,31 @@ app.post("/api/create-checkout-session", async (req, res) => {
         payment_method_types: ["card"],
         line_items: lineItems,
         mode: "payment",
-        success_url: "https://test-assignment-i5mu.vercel.app/",
+        phone_number_collection: {
+            enabled: true,
+        },
+        customer_email: "qwer@qwer.com",
+        metadata: {
+            id: "32",
+        },
+        success_url: "https://test-assignment-i5mu.vercel.app/order",
         cancel_url: "https://test-assignment-i5mu.vercel.app/",
+        // success_url: "http://localhost:5173",
+        // cancel_url: "http://localhost:5173",
     });
 
-    if (false) {
-        const { error } = await supabase
-            .from("countries")
-            .update({ name: "Australia" })
-            .eq("email", information.email)
-            .eq("phone", information.phone)
-            .eq("address", information.address);
-
-        console.log(error, "working");
-    }
-
-    // console.log("====================================");
-    // console.log(session);
-    // console.log("====================================");
+    const createData = async () => {
+        const { error } = await supabase.from("order_list").insert({
+            email: information.email,
+            product_id: information.productId,
+            session: session.id,
+            product_name: information.productName,
+        });
+        let { data } = await supabase.from("Order-list").select("*");
+        // console.log(error);
+        // console.log(data);
+    };
+    createData();
     res.json({ id: session.id });
 });
 

@@ -103,6 +103,14 @@ app.get("/test", async (req, res) => {
 
 app.post("/api/create-checkout-session", async (req, res) => {
     const { information } = req.body;
+
+    const { createError } = await supabase.from("users").insert({
+        name: information.name,
+        email: information.email,
+        phone: information.phone,
+        address: information.address,
+    });
+    console.log(createError);
     const lineItems = [
         {
             price_data: {

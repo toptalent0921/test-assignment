@@ -133,18 +133,19 @@ app.post("/api/create-checkout-session", async (req, res) => {
         // cancel_url: "http://localhost:5173",
     });
 
-    const createData = async () => {
-        const { error } = await supabase.from("order_list").insert({
-            email: information.email,
-            product_id: information.productId,
-            session: session.id,
-            product_name: information.productName,
-        });
-        let { data } = await supabase.from("Order-list").select("*");
-        console.log(error);
-        console.log(data);
-    };
-    createData();
+    // const createData = async () => {
+    const { error } = await supabase.from("order_list").insert({
+        email: information.email,
+        product_id: information.productId,
+        session: session.id,
+        product_name: information.productName,
+    });
+    let { data } = await supabase.from("Order-list").select("*");
+    console.log(error);
+    console.log(data);
+    // };
+
+    // createData();
     res.json({ id: session.id });
 });
 

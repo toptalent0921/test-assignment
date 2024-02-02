@@ -28,24 +28,45 @@ const Order = () => {
         order_cancel: false,
     }])
     const { user } = useAuth0();
+
+    console.log(user)
+
+
+
+
+    const [loading, setLoading] = useState(true);
+
     useEffect(() => {
         const fetchData = async () => {
             if (user) {
-                const { data } = await subbase
-                    .from('order_list')
-                    .select('*')
-                    .eq('email', user.email);
-                if (data) {
-                    setData(data)
+                try {
+                    const { data } = await subbase
+                        .from('order_list')
+                        .select('*')
+                        .eq('email', user.email);
+                    // console.log(data)
+                    if (data) {
+                        setData(data);
+                    }
+                } catch (error) {
+                    console.error("Error fetching data", error);
+                } finally {
+                    setLoading(false);
                 }
             }
-        }
-        fetchData()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+        };
+
+        fetchData();
+    }, [user]);
 
 
-    if (data.length === 1) {
+
+
+    if (!user) {
+        // Handle case where there is no user (you might want to redirect or show a login message)
+        return <div>Please log in to view your orders.</div>;
+    }
+    if (loading) {
         return (
             <div className='h-screen w-full flex items-center justify-center'>
                 <Hourglass
@@ -57,9 +78,8 @@ const Order = () => {
                     wrapperClass=""
                     colors={['#15803d', '#86efac']}
                 />
-
             </div>
-        )
+        );
     }
     if (data.length === 0) {
         return <NoOrderFound />

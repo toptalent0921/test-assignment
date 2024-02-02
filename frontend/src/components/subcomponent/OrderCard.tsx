@@ -27,6 +27,7 @@ const OrderCard = (props: orderData) => {
 
     console.log(dateOnlyString);
 
+
     const handleClick = async () => {
         if (props.payment) {
             const error = await supabase

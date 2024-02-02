@@ -85,7 +85,8 @@ const Order = () => {
         return <NoOrderFound />
     }
 
-
+    // Sort data based on the created_at property
+    const sortedData = [...data].sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
 
     return (
         <div className=" flex flex-wrap justify-center items-center">
@@ -93,7 +94,7 @@ const Order = () => {
             <div className=" w-96 h-96 diffBorder absolute bg-green-200 top-40 rotate-45  right-24"></div>
             <div className=" w-40 h-40 diffBorder absolute bg-green-200 bottom-10 rotate-12  left-52"></div>
             <div className=' flex flex-col'></div>
-            {data.map((data) => {
+            {sortedData.map((data) => {
                 return <OrderCard key={data.id} product_id={data.product_id} product_name={data.product_name} session={data.session} payment={data.payment} created_at={data.created_at} order_cancel={data.order_cancel} />
             })}
         </div>

@@ -54,9 +54,7 @@ const OrderCard = (props: orderData) => {
                     </CardHeader>
                     <CardContent>
                         <div className="flex justify-between ">
-
                             <div>
-
                                 <span>Date :</span> <span>{dateOnlyString}</span>
                             </div>
                             {(props.payment ?
@@ -70,7 +68,6 @@ const OrderCard = (props: orderData) => {
                             )}
 
                         </div>
-
                     </CardContent>
 
                 </Card>
@@ -85,9 +82,7 @@ const OrderCard = (props: orderData) => {
                 </CardHeader>
                 <CardContent>
                     <div className="flex justify-between items-center ">
-
                         <div>
-
                             <span>Date :</span> <span>{dateOnlyString}</span>
                         </div>
                         {(props.payment ?
@@ -96,15 +91,11 @@ const OrderCard = (props: orderData) => {
                     </div>
 
                     <div className=" mt-5">
-
                         {(props.payment ?
                             <Button onClick={handleClick} color="red" size="sm" className="w-full">Cancel Order</Button> : <Button onClick={handleClick} color="green" size="sm" className="w-full">Pay Now</Button>
                         )}
                     </div>
-
-
                 </CardContent>
-
             </Card>
         </div>
     )

@@ -64,6 +64,9 @@ const Search: React.FC = () => {
     } else {
         return (
             <div className=' m-auto  max-w-7xl '>
+                <div className=" w-80 h-80 diffBorder absolute bg-green-200 top-10 rotate-90  -left-6"></div>
+                <div className=" w-96 h-96 diffBorder absolute bg-green-200 top-40 rotate-45  right-24"></div>
+                <div className=" w-40 h-40 diffBorder absolute bg-green-200 bottom-10 rotate-12  left-52"></div>
                 <div className=' flex items-center justify-center '>
                     <h2 className="mb-4 mt-10 text-3xl font-extrabold tracking-tight leading-none text-green-800 md:text-5xl lg:text-6xl ">Available Srvice</h2>
                 </div>

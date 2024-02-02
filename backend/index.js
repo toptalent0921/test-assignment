@@ -131,10 +131,7 @@ app.post("/api/create-checkout-session", async (req, res) => {
         phone_number_collection: {
             enabled: true,
         },
-        customer_email: "qwer@qwer.com",
-        metadata: {
-            id: "32",
-        },
+        customer_email: information.email,
         success_url: "https://test-assignment-i5mu.vercel.app/order",
         cancel_url: "https://test-assignment-i5mu.vercel.app/",
         // success_url: "http://localhost:5173",

@@ -141,8 +141,8 @@ app.post("/api/create-checkout-session", async (req, res) => {
             product_name: information.productName,
         });
         let { data } = await supabase.from("Order-list").select("*");
-        // console.log(error);
-        // console.log(data);
+        console.log(error);
+        console.log(data);
     };
     createData();
     res.json({ id: session.id });
